@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
 
 const CreateContact = () => {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const { toast } = useContext(ToastContext);
 
   const [userDetails, setUserDetails] = useState({
@@ -16,7 +16,7 @@ const CreateContact = () => {
     availablequantity: "",
     damagequantity: "",
   });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ToastContext from "./ToastContext";
 
@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   const location = useLocation();
 
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     checkUserLoggedIn();
