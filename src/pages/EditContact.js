@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useNavigate, useParams, useEffect } from "react-router-dom";
 import Spinner from "../components/Spinner";
 // import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
@@ -102,14 +102,13 @@ const EditContact = () => {
                 Name Of Product
               </label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                id="nameInput"
-                name="name"
-                value={userDetails.name}
+                id="availablequantityInput"
+                name="availablequantity"
+                value={userDetails.availablequantity}
                 onChange={handleInputChange}
-                placeholder="John Doe"
-                required
+                placeholder="Available Quantity"
               />
             </div>
             <div className="form-group">
@@ -145,7 +144,7 @@ const EditContact = () => {
                 Quantity
               </label>
               <input
-                type="quantity"
+                type="number"
                 className="form-control"
                 id="quantityInput"
                 name="quantity"
@@ -192,11 +191,11 @@ const EditContact = () => {
               <input
                 type="number"
                 className="form-control"
-                id=" damagequantity"
+                id="damagequantity"
                 name="damagequantity"
                 value={userDetails.damagequantity}
                 onChange={handleInputChange}
-                placeholder=" damagequantity"
+                placeholder="damagequantity"
               />
             </div>
             <input
