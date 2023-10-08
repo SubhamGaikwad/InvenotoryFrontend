@@ -31,14 +31,17 @@ const EditContact = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const res = await fetch(`http://localhost:8000/api/contact`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({ id, ...userDetails }),
-    });
+    const res = await fetch(
+      `https://long-gold-duck-hose.cyclic.app/api/contact`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ id, ...userDetails }),
+      }
+    );
     const result = await res.json();
     if (!result.error) {
       toast.success(`updated [${userDetails.name}] contact`);
@@ -61,12 +64,15 @@ const EditContact = () => {
   useEffect(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/contact/${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await fetch(
+        `https://long-gold-duck-hose.cyclic.app/api/contact/${id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       const result = await res.json();
       setUserDetails({
         name: result.name,
