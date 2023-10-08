@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useEffect } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import ToastContext from "../context/ToastContext";
 
