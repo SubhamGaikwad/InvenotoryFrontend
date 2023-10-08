@@ -12,7 +12,9 @@ const Navbar = ({ title = "AERONICA" }) => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid">
         <Link to="/">
-          <a className="navbar-brand">{title}</a>
+          <a href="/" className="navbar-brand">
+            {title}
+          </a>
         </Link>
 
         <button
@@ -33,12 +35,16 @@ const Navbar = ({ title = "AERONICA" }) => {
               <>
                 <li className="nav-item">
                   <Link to="/mycontacts">
-                    <a className="nav-link">All Products</a>
+                    <a href="/mycontacts" className="nav-link">
+                      All Products
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/create">
-                    <a className="nav-link">Create</a>
+                    <a href="/create" className="nav-link">
+                      Create
+                    </a>
                   </Link>
                 </li>
                 <li
@@ -57,12 +63,16 @@ const Navbar = ({ title = "AERONICA" }) => {
               <>
                 <li className="nav-item">
                   <Link to="/login">
-                    <a className="nav-link">Login</a>
+                    <a href="/login" className="nav-link">
+                      Login
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/register">
-                    <a className="nav-link">Register</a>
+                    <a href="/register" className="nav-link">
+                      Register
+                    </a>
                   </Link>
                 </li>
               </>
