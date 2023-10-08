@@ -6,8 +6,11 @@ const Home = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   useEffect(() => {
-    !user && navigate("/login", { replace: true });
-  }, []);
+    if (!user) {
+      navigate("/login", { replace: true });
+    }
+  }, [user]);
+
   return (
     <>
       <div className="jumbotron">
