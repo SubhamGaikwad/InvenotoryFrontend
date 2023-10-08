@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useEffect } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 const Home = () => {
