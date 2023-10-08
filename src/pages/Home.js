@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { useEffect } from "react-router-dom";
+// import {  } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useEffect } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
