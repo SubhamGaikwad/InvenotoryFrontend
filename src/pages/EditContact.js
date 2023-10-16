@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate, useParams, useEffect } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 // import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
@@ -61,32 +61,36 @@ const EditContact = () => {
     }
   };
 
-  useEffect(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://long-gold-duck-hose.cyclic.app/api/contact/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const result = await res.json();
-      setUserDetails({
-        name: result.name,
-        vendor: result.vendor,
-        date: result.date,
-        description: result.description,
-        availablequantity: result.availablequantity,
-        damagequantity: result.damagequantity,
-      });
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `https://long-gold-duck-hose.cyclic.app/api/contact/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const result = await res.json();
+        setUserDetails({
+          name: result.name,
+          vendor: result.vendor,
+          date: result.date,
+          description: result.description,
+          availablequantity: result.availablequantity,
+          damagequantity: result.damagequantity,
+        });
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData(); // Call the async function here
+  }, [id]); // Dependency array with 'id'
 
   return (
     <>
@@ -104,7 +108,7 @@ const EditContact = () => {
               <input
                 type="number"
                 className="form-control"
-                id="availablequantityInput"
+                id="availablequantityInput" // Duplicate ID
                 name="availablequantity"
                 value={userDetails.availablequantity}
                 onChange={handleInputChange}
@@ -169,7 +173,7 @@ const EditContact = () => {
             </div>
             <div className="form-group">
               <label
-                htmlFor="availablequantityInput"
+                htmlFor="availablequantityInput" // Duplicate ID
                 className="form-label mt-4"
               >
                 availablequantity
@@ -177,7 +181,7 @@ const EditContact = () => {
               <input
                 type="number"
                 className="form-control"
-                id="availablequantityInput"
+                id="availablequantityInput" // Duplicate ID
                 name="availablequantity"
                 value={userDetails.availablequantity}
                 onChange={handleInputChange}

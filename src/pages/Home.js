@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-// import {  } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
-import { Link, useNavigate, useEffect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
   useEffect(() => {
     if (!user) {
       navigate("/login", { replace: true });
@@ -12,17 +13,13 @@ const Home = () => {
   }, [user]);
 
   return (
-    <>
-      <div className="jumbotron">
-        <h1>Welcome {user ? user.name : null}</h1>
-        <hr className="my-4" />
-        <Link to="/mycontacts">
-          <a className="btn btn-info" href="#" role="button">
-            Add Products
-          </a>
-        </Link>
-      </div>
-    </>
+    <div className="jumbotron">
+      <h1>Welcome {user ? user.name : null}</h1>
+      <hr className="my-4" />
+      <Link to="/mycontacts" className="btn btn-info" role="button">
+        Add Products
+      </Link>
+    </div>
   );
 };
 

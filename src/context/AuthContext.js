@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import { useLocation, useNavigate, useEffect } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 // import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ToastContext from "./ToastContext";

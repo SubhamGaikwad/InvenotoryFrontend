@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import { Link, useEffect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import ToastContext from "../context/ToastContext";
 
@@ -12,40 +12,39 @@ const AllContact = () => {
   const [modalData, setModalData] = useState({});
   const [contacts, setContacts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [filteredContacts, setFilteredContacts] = useState([]); // Store filtered contacts separately
 
-  useEffect(async () => {
+  useEffect(() => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://long-gold-duck-hose.cyclic.app/api/mycontacts`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          // try {
-          //   const res = await fetch(`http://localhost:8000/api/mycontacts`, {
-          //     method: "GET",
-          //     headers: {
-          //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-          //     },
+      const fetchData = async () => {
+        const res = await fetch(
+          `https://long-gold-duck-hose.cyclic.app/api/mycontacts`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const result = await res.json();
+        if (!result.error) {
+          setContacts(result.contacts);
+          setFilteredContacts(result.contacts); // Initialize filteredContacts with all contacts
+          setLoading(false);
+        } else {
+          console.log(result);
+          setLoading(false);
         }
-      );
-      const result = await res.json();
-      if (!result.error) {
-        setContacts(result.contacts);
-        setLoading(false);
-      } else {
-        console.log(result);
-        setLoading(false);
-      }
+      };
+      fetchData();
     } catch (err) {
       console.log(err);
     }
   }, []);
 
   const deleteContact = async (id) => {
-    if (window.confirm("are you sure you want to delete this Product ?")) {
+    if (window.confirm("Are you sure you want to delete this Product?")) {
       try {
         const res = await fetch(
           `https://long-gold-duck-hose.cyclic.app/api/delete/${id}`,
@@ -59,6 +58,7 @@ const AllContact = () => {
         const result = await res.json();
         if (!result.error) {
           setContacts(result.myContacts);
+          setFilteredContacts(result.myContacts); // Update filteredContacts after deletion
           toast.success("Deleted Product");
           setShowModal(false);
         } else {
@@ -70,16 +70,15 @@ const AllContact = () => {
     }
   };
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-
-    const newSearchUser = contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(searchInput.toLowerCase())
+  // Handle search input changes and filter contacts in real-time
+  const handleSearchSubmit = (input) => {
+    const lowerCaseInput = input.toLowerCase();
+    setSearchInput(input); // Update the searchInput state
+    const filtered = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(lowerCaseInput)
     );
-    console.log(newSearchUser);
-    setContacts(newSearchUser);
+    setFilteredContacts(filtered);
   };
-
   return (
     <>
       <div>
@@ -96,7 +95,7 @@ const AllContact = () => {
               <h3>No products created yet</h3>
             ) : (
               <>
-                <form className="d-flex" onSubmit={handleSearchSubmit}>
+                <form className="d-flex">
                   <input
                     type="text"
                     name="searchInput"
@@ -104,7 +103,7 @@ const AllContact = () => {
                     className="form-control my-2"
                     placeholder="Search Product"
                     value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
+                    onChange={(e) => handleSearchSubmit(e.target.value)} // Pass the input value to the function
                   />
                   <button type="submit" className="btn btn-info mx-2">
                     Search
@@ -127,7 +126,7 @@ const AllContact = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {contacts.map((contact) => (
+                    {filteredContacts.map((contact) => (
                       <tr
                         key={contact._id}
                         onClick={() => {
