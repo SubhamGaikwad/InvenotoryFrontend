@@ -106,13 +106,13 @@ const EditContact = () => {
                 Name Of Product
               </label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
-                id="availablequantityInput" // Duplicate ID
-                name="availablequantity"
-                value={userDetails.availablequantity}
+                id="name" // Duplicate ID
+                name="nameInput"
+                value={userDetails.name}
                 onChange={handleInputChange}
-                placeholder="Available Quantity"
+                placeholder="Product Name"
               />
             </div>
             <div className="form-group">
